@@ -1,0 +1,31 @@
+name : Deploy in dev branch
+on   :
+    push :
+        branches:
+            - main #trigger only the development branch
+jobs  :
+    deploy:
+        runs-on: ubuntu-latest
+
+
+        steps:
+          -name : checkout repository 
+           uses : actions/checkout@v3
+
+          -name : Setup SSH key
+            run : |
+              mkdir -p ~/.ssh 
+              echo "${{secrets.AWS_SSH_KEY}}" > ~/.ssh/aws_key.pem
+              chmod 600 ~/.ssh/aws_key.pem
+          -name : Deploy to AWS EC2
+           run : |
+              ssh -i ~/.ssh/aws_key.pem ubuntu@{{secrets.DEV_IP}}
+              
+              cd Devops-CI-CD-
+
+              git pull origin main
+
+              pnpm install
+
+              pm2 restart web || pm2 restart index
+            EOF
