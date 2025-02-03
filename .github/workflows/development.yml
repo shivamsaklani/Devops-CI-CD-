@@ -30,6 +30,7 @@ jobs:
             export PATH=$PATH:/home/ubuntu/.nvm/versions/node/v22.13.1/bin
             node -v 
             pnpm install
+            pnpm run build
             pm2 restart web || pm2 restart index
           EOF
       
