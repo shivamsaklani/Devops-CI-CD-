@@ -9,15 +9,15 @@ jobs  :
 
 
         steps:
-          -name : checkout repository 
+          - name : checkout repository 
            uses : actions/checkout@v3
 
-          -name : Setup SSH key
+          - name : Setup SSH key
             run : |
               mkdir -p ~/.ssh 
               echo "${{secrets.AWS_SSH_KEY}}" > ~/.ssh/aws_key.pem
               chmod 600 ~/.ssh/aws_key.pem
-          -name : Deploy to AWS EC2
+          - name : Deploy to AWS EC2
            run : |
               ssh -i ~/.ssh/aws_key.pem ubuntu@{{secrets.DEV_IP}}
               
