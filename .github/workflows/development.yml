@@ -11,11 +11,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      
-      - name: Setup NodeJs
-        uses: actions/setup-node@v1
-        with:
-          node-version: "22.13.1"
 
       - name: Setup SSH key
         run: |
@@ -31,6 +26,8 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/aws_key.pem ubuntu@${{ secrets.DEV_IP }} << 'EOF'
             cd Devops-CI-CD-
             git pull origin main
+            export NODE_ENV=Development
+            export PATH=$PATH:/home/ubuntu/.nvm/versions/node/v22.13.1/bin
             node -v 
             pnpm install
             pm2 restart web || pm2 restart index
