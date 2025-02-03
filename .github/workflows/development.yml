@@ -24,7 +24,7 @@ jobs:
       - name: Deploy to AWS EC2
         run: |
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/aws_key.pem ubuntu@${{ secrets.DEV_IP }} << 'EOF'
-            cd /home/${{ secrets.AWS_USER }}/Devops-CI-CD-
+            cd Devops-CI-CD-
             git pull origin main
             pnpm install
             pm2 restart web || pm2 restart index
