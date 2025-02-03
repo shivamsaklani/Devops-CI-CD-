@@ -26,6 +26,7 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/aws_key.pem ubuntu@${{ secrets.DEV_IP }} << 'EOF'
             cd Devops-CI-CD-
             git pull origin main
+            source ~/.bashrc
             pnpm install
             pm2 restart web || pm2 restart index
           EOF
