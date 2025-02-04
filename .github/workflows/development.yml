@@ -31,6 +31,6 @@ jobs:
             node -v 
             pnpm install
             pnpm run build
-            pm2 restart web || pm2 restart index
+            pm2 restart httpserver || pm2 restart websocketserver || pm2 restart web
           EOF
       
