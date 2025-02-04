@@ -7,7 +7,7 @@ app.use(express.json());
 
 app.get("/" , (req,res)=>{
     res.json({
-    data :"running"
+    data :"server is running"
     });
 })
 
